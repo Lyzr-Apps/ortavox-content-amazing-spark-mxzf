@@ -1,0 +1,39 @@
+{
+  "agent_name": "Topic Research Agent",
+  "agent_id": "69983ee1d67766dd690a80b5",
+  "description": "Researches trending topics, industry news, and content gaps in the AI voice agent and conversational AI space to suggest high-impact content ideas",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "research_summary": "string",
+    "trending_topics": [
+      {
+        "title": "string",
+        "description": "string",
+        "target_audience": "string",
+        "key_angles": ["string"],
+        "search_interest": "string",
+        "content_type": "string",
+        "priority": "string"
+      }
+    ],
+    "industry_insights": ["string"]
+  },
+  "example_response": {
+    "research_summary": "The AI voice agent market continues to grow rapidly in 2026, driven by enterprise adoption and advances in multilingual NLP...",
+    "trending_topics": [
+      {
+        "title": "How Multimodal AI Is Supercharging Voice Agents",
+        "description": "Exploring the convergence of voice, vision, and text understanding in next-gen AI agents",
+        "target_audience": "CTO/VP Engineering at mid-to-large enterprises",
+        "key_angles": ["Technical architecture", "Real-world use cases", "ROI data"],
+        "search_interest": "High - 15,000/mo estimated",
+        "content_type": "Blog post + whitepaper",
+        "priority": "High"
+      }
+    ],
+    "industry_insights": ["Enterprise voice AI adoption grew 45% YoY in 2025", "Multilingual support is the #1 requested feature"]
+  },
+  "schema_file": "response_schemas/topic_research_agent_response.json"
+}

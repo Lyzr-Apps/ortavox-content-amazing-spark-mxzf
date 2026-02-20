@@ -1,0 +1,39 @@
+{
+  "agent_name": "Draft Editor Agent",
+  "agent_id": "69983ee20b3f0d6fd42f7b00",
+  "description": "Reviews and refines AI-generated content drafts with improvements to tone, clarity, grammar, structure, and brand voice alignment for Ortavox",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "edited_content": "string",
+    "quality_score": "number",
+    "editorial_summary": "string",
+    "changes_made": [
+      {
+        "type": "string",
+        "description": "string"
+      }
+    ],
+    "suggestions": ["string"],
+    "brand_voice_alignment": "string"
+  },
+  "example_response": {
+    "edited_content": "The polished, publication-ready version of the content...",
+    "quality_score": 8.5,
+    "editorial_summary": "Overall strong piece with good structure. Improved transitions between sections 2 and 3, tightened language in the introduction, and strengthened the CTA.",
+    "changes_made": [
+      {
+        "type": "Grammar",
+        "description": "Fixed subject-verb agreement in paragraph 3"
+      },
+      {
+        "type": "Tone",
+        "description": "Softened overly promotional language in the conclusion"
+      }
+    ],
+    "suggestions": ["Consider adding a customer quote or testimonial", "The statistics section could benefit from a comparison chart"],
+    "brand_voice_alignment": "Strong - maintains Ortavox's professional yet approachable tone throughout"
+  },
+  "schema_file": "response_schemas/draft_editor_agent_response.json"
+}

@@ -1,0 +1,39 @@
+{
+  "agent_name": "Blog Writer Agent",
+  "agent_id": "69983eabf73dddeaafe7dd83",
+  "description": "Drafts comprehensive, thought-leadership blog posts about AI voice agents, conversational AI, and Ortavox's technology with engaging narratives and clear structure",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "blog_title": "string",
+    "meta_description": "string",
+    "estimated_read_time": "string",
+    "target_audience": "string",
+    "content_sections": [
+      {
+        "heading": "string",
+        "content": "string"
+      }
+    ],
+    "call_to_action": "string"
+  },
+  "example_response": {
+    "blog_title": "Why AI Voice Agents Are Reshaping Customer Experience in 2026",
+    "meta_description": "Discover how AI voice agents are transforming customer service with natural conversations, reduced wait times, and 24/7 availability.",
+    "estimated_read_time": "8 min read",
+    "target_audience": "B2B SaaS leaders and CX decision-makers",
+    "content_sections": [
+      {
+        "heading": "Introduction: The Rise of Voice-First AI",
+        "content": "In 2026, the way businesses interact with customers is undergoing a fundamental shift..."
+      },
+      {
+        "heading": "The Technology Behind Modern AI Voice Agents",
+        "content": "At the core of this revolution lies advanced NLP and speech recognition..."
+      }
+    ],
+    "call_to_action": "Ready to transform your customer experience with AI voice agents? Contact Ortavox today for a personalized demo."
+  },
+  "schema_file": "response_schemas/blog_writer_agent_response.json"
+}

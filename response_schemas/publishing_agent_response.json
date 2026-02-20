@@ -1,0 +1,51 @@
+{
+  "agent_name": "Publishing Agent",
+  "agent_id": "69983ef5d4c096ee4884af86",
+  "description": "Saves finalized content to Notion workspace and creates Google Calendar events for scheduled publishing dates",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "publishing_status": "string",
+    "notion_page": {
+      "status": "string",
+      "page_title": "string",
+      "tags": ["string"]
+    },
+    "calendar_event": {
+      "status": "string",
+      "event_title": "string",
+      "scheduled_date": "string",
+      "reminders": ["string"]
+    },
+    "summary": "string"
+  },
+  "example_response": {
+    "publishing_status": "Successfully Published",
+    "notion_page": {
+      "status": "Created",
+      "page_title": "Blog: AI Voice Agents Reshaping Customer Experience",
+      "tags": ["blog", "AI voice agents", "scheduled", "Q1-2026"]
+    },
+    "calendar_event": {
+      "status": "Created",
+      "event_title": "Publish: AI Voice Agents Blog Post",
+      "scheduled_date": "2026-02-25T09:00:00Z",
+      "reminders": ["1 day before", "1 hour before"]
+    },
+    "summary": "Content saved to Notion and publishing scheduled for Feb 25, 2026 at 9:00 AM UTC with reminders set."
+  },
+  "tools": [
+    {
+      "tool_name": "notion",
+      "tool_source": "composio",
+      "action_names": ["NOTION_CREATE_PAGE"]
+    },
+    {
+      "tool_name": "googlecalendar",
+      "tool_source": "composio",
+      "action_names": ["GOOGLECALENDAR_CREATE_EVENT"]
+    }
+  ],
+  "schema_file": "response_schemas/publishing_agent_response.json"
+}

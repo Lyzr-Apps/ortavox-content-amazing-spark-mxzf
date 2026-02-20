@@ -1,0 +1,48 @@
+{
+  "agent_name": "SEO Optimizer Agent",
+  "agent_id": "69983eacf73dddeaafe7dd89",
+  "description": "Analyzes and enhances content with SEO best practices including keyword optimization, meta tags, internal linking suggestions, and readability improvements",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "primary_keywords": [
+      {
+        "keyword": "string",
+        "estimated_volume": "string",
+        "difficulty": "string"
+      }
+    ],
+    "secondary_keywords": ["string"],
+    "optimized_title_tag": "string",
+    "optimized_meta_description": "string",
+    "header_suggestions": ["string"],
+    "readability_score": "string",
+    "readability_tips": ["string"],
+    "content_gap_analysis": ["string"],
+    "schema_markup_suggestions": ["string"]
+  },
+  "example_response": {
+    "primary_keywords": [
+      {
+        "keyword": "AI voice agents",
+        "estimated_volume": "12,000/mo",
+        "difficulty": "Medium"
+      },
+      {
+        "keyword": "conversational AI for customer service",
+        "estimated_volume": "6,500/mo",
+        "difficulty": "Medium-High"
+      }
+    ],
+    "secondary_keywords": ["voice automation", "AI call center", "voice bots", "NLP customer service"],
+    "optimized_title_tag": "AI Voice Agents: How They're Transforming Customer Experience in 2026 | Ortavox",
+    "optimized_meta_description": "Learn how AI voice agents reduce wait times by 80% and boost CSAT scores. Discover Ortavox's approach to conversational AI.",
+    "header_suggestions": ["H1: AI Voice Agents and Customer Experience", "H2: The Technology Behind Voice AI"],
+    "readability_score": "Grade 9 (Flesch-Kincaid)",
+    "readability_tips": ["Shorten sentences in section 3", "Add bullet points for key statistics"],
+    "content_gap_analysis": ["Missing comparison with chatbots", "No ROI calculation section"],
+    "schema_markup_suggestions": ["Article schema", "FAQ schema for common questions section"]
+  },
+  "schema_file": "response_schemas/seo_optimizer_agent_response.json"
+}

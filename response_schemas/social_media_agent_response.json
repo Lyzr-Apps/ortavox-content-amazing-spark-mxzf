@@ -1,0 +1,55 @@
+{
+  "agent_name": "Social Media Agent",
+  "agent_id": "69983eacf73dddeaafe7dd85",
+  "description": "Creates platform-specific social media content adapted from blog posts for LinkedIn, Twitter/X, Facebook, and Instagram",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "linkedin_post": {
+      "content": "string",
+      "hashtags": ["string"]
+    },
+    "twitter_thread": [
+      {
+        "tweet_number": "number",
+        "content": "string"
+      }
+    ],
+    "facebook_post": {
+      "content": "string",
+      "engagement_question": "string"
+    },
+    "instagram_post": {
+      "caption": "string",
+      "hashtags": ["string"],
+      "carousel_outline": ["string"]
+    }
+  },
+  "example_response": {
+    "linkedin_post": {
+      "content": "The future of customer service isn't just automated -- it's conversational...",
+      "hashtags": ["#AIVoiceAgents", "#ConversationalAI", "#Ortavox", "#CustomerExperience"]
+    },
+    "twitter_thread": [
+      {
+        "tweet_number": 1,
+        "content": "AI voice agents are changing how businesses talk to customers. Here's what you need to know (thread):"
+      },
+      {
+        "tweet_number": 2,
+        "content": "1/ Traditional IVR systems frustrate customers. AI voice agents understand context, emotion, and intent naturally."
+      }
+    ],
+    "facebook_post": {
+      "content": "Imagine never putting a customer on hold again. AI voice agents make that possible...",
+      "engagement_question": "What's the longest you've waited on hold with customer service?"
+    },
+    "instagram_post": {
+      "caption": "The future of customer service is here, and it speaks your language...",
+      "hashtags": ["#AIVoiceAgents", "#ConversationalAI", "#FutureOfWork"],
+      "carousel_outline": ["Slide 1: The problem with traditional phone support", "Slide 2: How AI voice agents work"]
+    }
+  },
+  "schema_file": "response_schemas/social_media_agent_response.json"
+}

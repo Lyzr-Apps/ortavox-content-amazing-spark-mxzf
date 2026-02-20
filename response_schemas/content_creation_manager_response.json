@@ -1,0 +1,55 @@
+{
+  "agent_name": "Content Creation Manager",
+  "agent_id": "69983ebc0b3f0d6fd42f7af6",
+  "description": "Coordinates blog writing, social media content generation, and SEO optimization sub-agents; aggregates all outputs into a unified content package for review",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "content_package_title": "string",
+    "topic": "string",
+    "blog_post": {
+      "title": "string",
+      "meta_description": "string",
+      "read_time": "string",
+      "content": "string"
+    },
+    "social_media": {
+      "linkedin": "string",
+      "twitter_thread": ["string"],
+      "facebook": "string",
+      "instagram_caption": "string"
+    },
+    "seo_recommendations": {
+      "primary_keywords": ["string"],
+      "meta_title": "string",
+      "meta_description": "string",
+      "readability_score": "string"
+    },
+    "status": "string"
+  },
+  "example_response": {
+    "content_package_title": "Content Kit: AI Voice Agents in Customer Service",
+    "topic": "How AI Voice Agents Are Reshaping Customer Service",
+    "blog_post": {
+      "title": "Why AI Voice Agents Are the Future of Customer Experience",
+      "meta_description": "Explore how AI voice agents transform customer service with natural conversations and 24/7 availability.",
+      "read_time": "8 min read",
+      "content": "Full blog post content here..."
+    },
+    "social_media": {
+      "linkedin": "LinkedIn post content...",
+      "twitter_thread": ["Tweet 1 content...", "Tweet 2 content..."],
+      "facebook": "Facebook post content...",
+      "instagram_caption": "Instagram caption content..."
+    },
+    "seo_recommendations": {
+      "primary_keywords": ["AI voice agents", "conversational AI"],
+      "meta_title": "AI Voice Agents: Transforming Customer Experience | Ortavox",
+      "meta_description": "Discover how AI voice agents reduce wait times and boost satisfaction.",
+      "readability_score": "Grade 9"
+    },
+    "status": "Ready for Review"
+  },
+  "schema_file": "response_schemas/content_creation_manager_response.json"
+}

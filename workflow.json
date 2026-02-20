@@ -1,0 +1,103 @@
+{
+  "name": "Ortavox Content Creation Assistant",
+  "description": "Multi-agent content creation workflow for Ortavox that coordinates topic research, blog writing, social media content, SEO optimization, draft editing, and publishing to Notion/Google Calendar",
+  "nodes": [
+    {
+      "id": "input_node",
+      "type": "Input",
+      "label": "User Request",
+      "nodeCategory": "input"
+    },
+    {
+      "id": "topic_research_agent",
+      "type": "Agent",
+      "label": "Topic Research Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69983ee1d67766dd690a80b5",
+      "provider": "perplexity",
+      "model": "sonar-pro"
+    },
+    {
+      "id": "content_creation_manager",
+      "type": "Agent",
+      "label": "Content Creation Manager",
+      "nodeCategory": "agent",
+      "agent_id": "69983ebc0b3f0d6fd42f7af6",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "managed_agents": [
+        "69983eabf73dddeaafe7dd83",
+        "69983eacf73dddeaafe7dd85",
+        "69983eacf73dddeaafe7dd89"
+      ]
+    },
+    {
+      "id": "blog_writer_agent",
+      "type": "Agent",
+      "label": "Blog Writer Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69983eabf73dddeaafe7dd83",
+      "provider": "openai",
+      "model": "gpt-4.1"
+    },
+    {
+      "id": "social_media_agent",
+      "type": "Agent",
+      "label": "Social Media Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69983eacf73dddeaafe7dd85",
+      "provider": "openai",
+      "model": "gpt-4.1"
+    },
+    {
+      "id": "seo_optimizer_agent",
+      "type": "Agent",
+      "label": "SEO Optimizer Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69983eacf73dddeaafe7dd89",
+      "provider": "openai",
+      "model": "gpt-4.1"
+    },
+    {
+      "id": "draft_editor_agent",
+      "type": "Agent",
+      "label": "Draft Editor Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69983ee20b3f0d6fd42f7b00",
+      "provider": "openai",
+      "model": "gpt-4.1"
+    },
+    {
+      "id": "publishing_agent",
+      "type": "Agent",
+      "label": "Publishing Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69983ef5d4c096ee4884af86",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "tools": ["NOTION_CREATE_PAGE", "GOOGLECALENDAR_CREATE_EVENT"]
+    },
+    {
+      "id": "output_node",
+      "type": "Output",
+      "label": "Content Output",
+      "nodeCategory": "end"
+    }
+  ],
+  "edges": [
+    { "source": "input_node", "target": "topic_research_agent" },
+    { "source": "input_node", "target": "content_creation_manager" },
+    { "source": "content_creation_manager", "target": "blog_writer_agent" },
+    { "source": "content_creation_manager", "target": "social_media_agent" },
+    { "source": "content_creation_manager", "target": "seo_optimizer_agent" },
+    { "source": "blog_writer_agent", "target": "content_creation_manager" },
+    { "source": "social_media_agent", "target": "content_creation_manager" },
+    { "source": "seo_optimizer_agent", "target": "content_creation_manager" },
+    { "source": "content_creation_manager", "target": "output_node" },
+    { "source": "topic_research_agent", "target": "output_node" },
+    { "source": "input_node", "target": "draft_editor_agent" },
+    { "source": "draft_editor_agent", "target": "output_node" },
+    { "source": "input_node", "target": "publishing_agent" },
+    { "source": "publishing_agent", "target": "output_node" }
+  ]
+}
