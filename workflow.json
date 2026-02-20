@@ -1,6 +1,6 @@
 {
   "name": "Ortavox Content Creation Assistant",
-  "description": "Multi-agent content creation workflow for Ortavox that coordinates topic research, blog writing, social media content, SEO optimization, draft editing, and publishing to Notion/Google Calendar",
+  "description": "Multi-agent content creation workflow for Ortavox that coordinates topic research, blog writing, social media content, SEO optimization, draft editing, visual design, and publishing to Notion/Google Calendar",
   "nodes": [
     {
       "id": "input_node",
@@ -78,6 +78,16 @@
       "tools": ["NOTION_CREATE_PAGE", "GOOGLECALENDAR_CREATE_EVENT"]
     },
     {
+      "id": "design_post_agent",
+      "type": "Agent",
+      "label": "Design Post Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69984d1c3f366d1badd7c2eb",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "has_image_output": true
+    },
+    {
       "id": "output_node",
       "type": "Output",
       "label": "Content Output",
@@ -98,6 +108,8 @@
     { "source": "input_node", "target": "draft_editor_agent" },
     { "source": "draft_editor_agent", "target": "output_node" },
     { "source": "input_node", "target": "publishing_agent" },
-    { "source": "publishing_agent", "target": "output_node" }
+    { "source": "publishing_agent", "target": "output_node" },
+    { "source": "input_node", "target": "design_post_agent" },
+    { "source": "design_post_agent", "target": "output_node" }
   ]
 }

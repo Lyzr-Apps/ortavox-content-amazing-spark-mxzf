@@ -27,6 +27,8 @@ import {
   FiChevronUp,
   FiRefreshCw,
   FiGrid,
+  FiImage,
+  FiDownload,
 } from 'react-icons/fi'
 import {
   HiOutlineSparkles,
@@ -36,6 +38,7 @@ import {
   HiOutlineHashtag,
   HiOutlineChartBar,
   HiOutlineCheckCircle,
+  HiOutlinePaintBrush,
 } from 'react-icons/hi2'
 
 // ============================================================
@@ -47,6 +50,7 @@ const AGENT_IDS = {
   CONTENT_MANAGER: '69983ebc0b3f0d6fd42f7af6',
   DRAFT_EDITOR: '69983ee20b3f0d6fd42f7b00',
   PUBLISHING: '69983ef5d4c096ee4884af86',
+  DESIGN_POST: '69984d1c3f366d1badd7c2eb',
 }
 
 const AGENTS_INFO = [
@@ -54,9 +58,10 @@ const AGENTS_INFO = [
   { id: AGENT_IDS.CONTENT_MANAGER, name: 'Content Manager', desc: 'Coordinates blog, social, and SEO creation' },
   { id: AGENT_IDS.DRAFT_EDITOR, name: 'Draft Editor', desc: 'Refines drafts for clarity and brand voice' },
   { id: AGENT_IDS.PUBLISHING, name: 'Publishing', desc: 'Publishes to Notion and schedules via Calendar' },
+  { id: AGENT_IDS.DESIGN_POST, name: 'Design Post', desc: 'Generates visual content with DALL-E 3' },
 ]
 
-type ViewType = 'dashboard' | 'topics' | 'generate' | 'editor' | 'publish'
+type ViewType = 'dashboard' | 'topics' | 'generate' | 'editor' | 'publish' | 'design'
 
 // ============================================================
 // SAMPLE DATA
@@ -167,6 +172,22 @@ const SAMPLE_PUBLISHING_RESULT = {
   summary: 'Content saved to Notion workspace and publishing scheduled for Feb 25, 2026 at 9:00 AM UTC. Reminders set for 1 day and 1 hour before publication.',
 }
 
+const SAMPLE_DESIGN_RESULT = {
+  design_concept: 'Abstract visualization of AI neural networks with deep purple gradients and flowing data streams, representing Ortavox\'s conversational intelligence platform. Clean geometric lines form interconnected nodes against a dark backdrop.',
+  platform: 'LinkedIn',
+  dimensions: '1200x627',
+  style_notes: 'Deep purple to midnight blue gradient background with clean geometric lines forming neural network patterns. Subtle glow effects on connection nodes. Modern, minimalist tech aesthetic suitable for B2B enterprise marketing.',
+  alt_text: 'Abstract AI neural network visualization with purple gradient and flowing data connections representing conversational intelligence technology',
+  usage_suggestions: [
+    'Use as LinkedIn post header for AI industry thought leadership articles',
+    'Pair with blog post about conversational AI trends',
+    'Include in company newsletter as visual separator between sections',
+    'Adapt for presentation slides on AI voice technology',
+  ],
+}
+
+const SAMPLE_DESIGN_IMAGE_URL = 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=627&fit=crop'
+
 // ============================================================
 // INTERFACES
 // ============================================================
@@ -234,6 +255,15 @@ interface PublishingResult {
     reminders: string[]
   }
   summary: string
+}
+
+interface DesignPostResult {
+  design_concept: string
+  platform: string
+  dimensions: string
+  style_notes: string
+  alt_text: string
+  usage_suggestions: string[]
 }
 
 // ============================================================
@@ -477,6 +507,14 @@ function DashboardView({
       borderColor: 'border-amber-500/20 hover:border-amber-500/40',
     },
     {
+      icon: <HiOutlinePaintBrush className="w-6 h-6" />,
+      title: 'Design Post',
+      desc: 'Generate professional visuals and graphics with AI image generation',
+      view: 'design' as ViewType,
+      color: 'bg-pink-500/20 text-pink-400',
+      borderColor: 'border-pink-500/20 hover:border-pink-500/40',
+    },
+    {
       icon: <HiOutlineRocketLaunch className="w-6 h-6" />,
       title: 'Publish Content',
       desc: 'Save to Notion and schedule publishing via Google Calendar',
@@ -501,7 +539,7 @@ function DashboardView({
         <StatCard icon={<FiTrendingUp className="w-5 h-5" />} label="Topics Researched" value={sampleMode ? '24' : '--'} color="bg-blue-500/20 text-blue-400" />
         <StatCard icon={<FiFileText className="w-5 h-5" />} label="Content Packages" value={sampleMode ? '12' : '--'} color="bg-violet-500/20 text-violet-400" />
         <StatCard icon={<FiEdit3 className="w-5 h-5" />} label="Drafts Edited" value={sampleMode ? '18' : '--'} color="bg-amber-500/20 text-amber-400" />
-        <StatCard icon={<FiSend className="w-5 h-5" />} label="Published" value={sampleMode ? '9' : '--'} color="bg-emerald-500/20 text-emerald-400" />
+        <StatCard icon={<FiImage className="w-5 h-5" />} label="Designs Created" value={sampleMode ? '15' : '--'} color="bg-pink-500/20 text-pink-400" />
       </div>
 
       {/* Quick Actions */}
@@ -533,13 +571,13 @@ function DashboardView({
       <div>
         <h2 className="text-lg font-semibold text-slate-200 mb-4">Content Workflow</h2>
         <div className="flex items-center gap-2 flex-wrap">
-          {['Research Topics', 'Generate Content', 'Edit Draft', 'Publish'].map((step, i) => (
+          {['Research Topics', 'Generate Content', 'Edit Draft', 'Design Post', 'Publish'].map((step, i) => (
             <React.Fragment key={step}>
               <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-800/60 border border-slate-700/50">
                 <span className="w-6 h-6 rounded-full bg-violet-600/30 text-violet-400 flex items-center justify-center text-xs font-bold">{i + 1}</span>
                 <span className="text-sm text-slate-300">{step}</span>
               </div>
-              {i < 3 && <FiChevronRight className="w-4 h-4 text-slate-600 flex-shrink-0" />}
+              {i < 4 && <FiChevronRight className="w-4 h-4 text-slate-600 flex-shrink-0" />}
             </React.Fragment>
           ))}
         </div>
@@ -1538,6 +1576,284 @@ Please save this to Notion and create a Google Calendar event for the publishing
 }
 
 // ============================================================
+// VIEW: DESIGN POST
+// ============================================================
+
+function DesignPostView({
+  contentTopic,
+  sampleMode,
+  activeAgentId,
+  setActiveAgentId,
+}: {
+  contentTopic: string
+  sampleMode: boolean
+  activeAgentId: string | null
+  setActiveAgentId: (id: string | null) => void
+}) {
+  const [prompt, setPrompt] = useState('')
+  const [platform, setPlatform] = useState('linkedin')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [result, setResult] = useState<DesignPostResult | null>(null)
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  useEffect(() => {
+    if (contentTopic && !prompt) {
+      setPrompt(contentTopic)
+    }
+  }, [contentTopic])
+
+  useEffect(() => {
+    if (sampleMode && !result && !loading) {
+      setResult(SAMPLE_DESIGN_RESULT as DesignPostResult)
+      setImageUrl(SAMPLE_DESIGN_IMAGE_URL)
+      setImageLoaded(true)
+    }
+    if (!sampleMode && result === SAMPLE_DESIGN_RESULT) {
+      setResult(null)
+      setImageUrl(null)
+      setImageLoaded(false)
+    }
+  }, [sampleMode])
+
+  const platformOptions = [
+    { value: 'linkedin', label: 'LinkedIn (1200x627)', icon: <FiGlobe className="w-4 h-4" /> },
+    { value: 'instagram', label: 'Instagram (1080x1080)', icon: <FiGrid className="w-4 h-4" /> },
+    { value: 'twitter', label: 'X / Twitter (1600x900)', icon: <HiOutlineHashtag className="w-4 h-4" /> },
+    { value: 'blog', label: 'Blog Header (1200x630)', icon: <FiFileText className="w-4 h-4" /> },
+  ]
+
+  const handleGenerate = useCallback(async () => {
+    if (!prompt.trim()) return
+    setLoading(true)
+    setError(null)
+    setResult(null)
+    setImageUrl(null)
+    setImageLoaded(false)
+    setActiveAgentId(AGENT_IDS.DESIGN_POST)
+    try {
+      const selectedPlatform = platformOptions.find((p) => p.value === platform)
+      const message = `Create a professional visual design for the following content:
+
+Topic: ${prompt}
+Platform: ${selectedPlatform?.label ?? platform}
+Brand: Ortavox (AI voice agent company)
+Style: Modern, tech-forward, deep purples, clean lines, professional B2B aesthetic
+
+Generate a high-quality image that visually communicates the core concept.`
+
+      const res = await callAIAgent(message, AGENT_IDS.DESIGN_POST)
+      if (res.success) {
+        const data = res?.response?.result as DesignPostResult | undefined
+        if (data) {
+          setResult(data)
+        }
+        // Image comes from module_outputs at top level (NOT result.response.module_outputs)
+        const artifactFiles = res?.module_outputs?.artifact_files
+        if (Array.isArray(artifactFiles) && artifactFiles.length > 0) {
+          const firstImage = artifactFiles[0]
+          if (firstImage?.file_url) {
+            setImageUrl(firstImage.file_url)
+          }
+        }
+        if (!data && !artifactFiles?.length) {
+          setError('Received an empty response from the design agent.')
+        }
+      } else {
+        setError(res?.error ?? 'Failed to generate design. Please try again.')
+      }
+    } catch {
+      setError('An unexpected error occurred. Please try again.')
+    } finally {
+      setLoading(false)
+      setActiveAgentId(null)
+    }
+  }, [prompt, platform, setActiveAgentId])
+
+  const handleDownload = useCallback(async () => {
+    if (!imageUrl) return
+    try {
+      const response = await fetch(imageUrl)
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `ortavox-design-${platform}-${Date.now()}.png`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(url)
+    } catch {
+      // Fallback: open in new tab
+      window.open(imageUrl, '_blank')
+    }
+  }, [imageUrl, platform])
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-white mb-1">Design Post</h1>
+        <p className="text-slate-400 text-sm">Generate professional visual content for your social media and blog posts.</p>
+      </div>
+
+      {/* Input Section */}
+      <div className="p-5 rounded-xl bg-slate-800/50 border border-slate-700/50 space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-slate-300 mb-1.5">Design Brief *</label>
+          <textarea
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            placeholder="Describe the visual you want to create, e.g., 'A modern illustration of AI voice agents transforming customer service with neural network patterns'..."
+            rows={3}
+            className="w-full px-4 py-2.5 rounded-lg bg-slate-900/70 border border-slate-700 text-slate-200 text-sm placeholder:text-slate-500 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 transition-colors resize-none"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-slate-300 mb-1.5">Platform</label>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {platformOptions.map((opt) => (
+              <button
+                key={opt.value}
+                onClick={() => setPlatform(opt.value)}
+                className={`flex items-center gap-2 px-3 py-2.5 rounded-lg text-xs font-medium border transition-all duration-200 ${
+                  platform === opt.value
+                    ? 'bg-violet-600/20 border-violet-500/50 text-violet-300'
+                    : 'bg-slate-900/50 border-slate-700/50 text-slate-400 hover:text-slate-300 hover:border-slate-600'
+                }`}
+              >
+                {opt.icon}
+                {opt.label.split(' (')[0]}
+              </button>
+            ))}
+          </div>
+        </div>
+        <button
+          onClick={handleGenerate}
+          disabled={loading || !prompt.trim()}
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md shadow-violet-600/20"
+        >
+          {loading ? <FiRefreshCw className="w-4 h-4 animate-spin" /> : <HiOutlinePaintBrush className="w-4 h-4" />}
+          {loading ? 'Generating Design...' : 'Generate Design'}
+        </button>
+      </div>
+
+      {/* Loading */}
+      {loading && <Spinner text="Creating your visual design with DALL-E 3. This may take a moment..." />}
+
+      {/* Error */}
+      {error && <InlineError message={error} onRetry={handleGenerate} />}
+
+      {/* Results */}
+      {!loading && (result || imageUrl) && (
+        <div className="space-y-4">
+          {/* Generated Image */}
+          {imageUrl && (
+            <div className="rounded-xl bg-slate-800/50 border border-slate-700/50 overflow-hidden">
+              <div className="relative">
+                {!imageLoaded && (
+                  <div className="w-full h-80 flex items-center justify-center bg-slate-900/50">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="w-8 h-8 rounded-full border-2 border-transparent border-t-violet-500 animate-spin" />
+                      <p className="text-xs text-slate-500">Loading image...</p>
+                    </div>
+                  </div>
+                )}
+                <img
+                  src={imageUrl}
+                  alt={result?.alt_text ?? 'Generated design'}
+                  className={`w-full object-contain max-h-[600px] ${imageLoaded ? '' : 'hidden'}`}
+                  onLoad={() => setImageLoaded(true)}
+                  onError={() => {
+                    setImageLoaded(true)
+                    setError('Failed to load the generated image.')
+                  }}
+                />
+              </div>
+              <div className="p-4 flex items-center justify-between border-t border-slate-700/50">
+                <div className="flex items-center gap-3 text-xs text-slate-400">
+                  {result?.platform && (
+                    <span className="px-2 py-0.5 rounded-full bg-violet-500/15 text-violet-300 border border-violet-500/20">
+                      {result.platform}
+                    </span>
+                  )}
+                  {result?.dimensions && (
+                    <span className="flex items-center gap-1">
+                      <FiImage className="w-3 h-3" />
+                      {result.dimensions}
+                    </span>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <CopyButton text={imageUrl} label="Copy URL" />
+                  <button
+                    onClick={handleDownload}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-md bg-slate-700/50 hover:bg-slate-700 text-slate-300 hover:text-slate-100 border border-slate-600/50 transition-all duration-200"
+                  >
+                    <FiDownload className="w-3.5 h-3.5" />
+                    Download
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Design Details */}
+          {result && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Design Concept */}
+              {result.design_concept && (
+                <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 space-y-2 md:col-span-2">
+                  <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-2">
+                    <HiOutlinePaintBrush className="w-3.5 h-3.5 text-violet-400" />
+                    Design Concept
+                  </h3>
+                  <p className="text-sm text-slate-300 leading-relaxed">{result.design_concept}</p>
+                </div>
+              )}
+
+              {/* Style Notes */}
+              {result.style_notes && (
+                <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 space-y-2">
+                  <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Style Notes</h3>
+                  <p className="text-sm text-slate-300 leading-relaxed">{result.style_notes}</p>
+                </div>
+              )}
+
+              {/* Usage Suggestions */}
+              {Array.isArray(result.usage_suggestions) && result.usage_suggestions.length > 0 && (
+                <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 space-y-2">
+                  <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Usage Suggestions</h3>
+                  <ul className="space-y-1.5">
+                    {result.usage_suggestions.map((sug, idx) => (
+                      <li key={idx} className="flex items-start gap-2 text-sm text-slate-300">
+                        <FiChevronRight className="w-3.5 h-3.5 text-violet-400 flex-shrink-0 mt-0.5" />
+                        {sug}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Alt Text */}
+              {result.alt_text && (
+                <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700/50 space-y-2 md:col-span-2">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Alt Text</h3>
+                    <CopyButton text={result.alt_text} label="Copy" />
+                  </div>
+                  <p className="text-sm text-slate-400 italic bg-slate-900/50 p-3 rounded-lg border border-slate-700/30">{result.alt_text}</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ============================================================
 // ERROR BOUNDARY
 // ============================================================
 
@@ -1619,6 +1935,7 @@ export default function Page() {
     { icon: <FiSearch className="w-5 h-5" />, label: 'Research Topics', view: 'topics' as ViewType },
     { icon: <HiOutlineSparkles className="w-5 h-5" />, label: 'Generate Content', view: 'generate' as ViewType },
     { icon: <FiEdit3 className="w-5 h-5" />, label: 'Edit Draft', view: 'editor' as ViewType },
+    { icon: <HiOutlinePaintBrush className="w-5 h-5" />, label: 'Design Post', view: 'design' as ViewType },
     { icon: <HiOutlineRocketLaunch className="w-5 h-5" />, label: 'Publish', view: 'publish' as ViewType },
   ]
 
@@ -1666,6 +1983,7 @@ export default function Page() {
                 {activeView === 'topics' && 'Topic Research'}
                 {activeView === 'generate' && 'Generate Content'}
                 {activeView === 'editor' && 'Draft Editor'}
+                {activeView === 'design' && 'Design Post'}
                 {activeView === 'publish' && 'Publish'}
               </span>
             </div>
@@ -1692,6 +2010,10 @@ export default function Page() {
                   <button onClick={navigateToEditor} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors">
                     <FiEdit3 className="w-3.5 h-3.5" />
                     Edit Draft
+                  </button>
+                  <button onClick={() => setActiveView('design')} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors">
+                    <HiOutlinePaintBrush className="w-3.5 h-3.5" />
+                    Design Post
                   </button>
                   <button onClick={navigateToPublish} className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors">
                     <HiOutlineRocketLaunch className="w-3.5 h-3.5" />
@@ -1740,6 +2062,14 @@ export default function Page() {
                   setActiveAgentId={setActiveAgentId}
                 />
               )}
+              {activeView === 'design' && (
+                <DesignPostView
+                  contentTopic={currentContentPackage?.topic ?? ''}
+                  sampleMode={sampleMode}
+                  activeAgentId={activeAgentId}
+                  setActiveAgentId={setActiveAgentId}
+                />
+              )}
               {activeView === 'publish' && (
                 <PublishingView
                   contentTitle={publishTitle}
@@ -1763,6 +2093,7 @@ export default function Page() {
                     { label: 'Research', done: !!currentContentPackage || activeView !== 'dashboard' },
                     { label: 'Generate', done: !!currentContentPackage },
                     { label: 'Edit', done: !!currentEditedContent },
+                    { label: 'Design', done: false },
                     { label: 'Publish', done: false },
                   ].map((step, i) => (
                     <div key={step.label} className="flex items-center gap-2.5">

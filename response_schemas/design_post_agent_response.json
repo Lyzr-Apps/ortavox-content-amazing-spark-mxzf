@@ -1,0 +1,36 @@
+{
+  "agent_name": "Design Post Agent",
+  "agent_id": "69984d1c3f366d1badd7c2eb",
+  "description": "Generates professional social media graphics, blog header images, and branded visual content for Ortavox's marketing campaigns using AI image generation",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "has_module_outputs": true,
+  "module_outputs_example": {
+    "artifact_files": [
+      {
+        "file_url": "https://example.com/image.png"
+      }
+    ]
+  },
+  "response_schema": {
+    "design_concept": "string",
+    "platform": "string",
+    "dimensions": "string",
+    "style_notes": "string",
+    "alt_text": "string",
+    "usage_suggestions": ["string"]
+  },
+  "example_response": {
+    "design_concept": "Abstract visualization of AI neural networks with deep purple gradients and flowing data streams, representing Ortavox's conversational intelligence platform",
+    "platform": "LinkedIn",
+    "dimensions": "1200x627",
+    "style_notes": "Deep purple to midnight blue gradient background with clean geometric lines forming neural network patterns. Subtle glow effects on connection nodes. Modern, minimalist tech aesthetic suitable for B2B enterprise marketing.",
+    "alt_text": "Abstract AI neural network visualization with purple gradient and flowing data connections representing conversational intelligence technology",
+    "usage_suggestions": [
+      "Use as LinkedIn post header for AI industry thought leadership articles",
+      "Pair with blog post about conversational AI trends",
+      "Include in company newsletter as visual separator between sections"
+    ]
+  }
+}
